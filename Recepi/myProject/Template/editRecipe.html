@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipe Submission Form</title>
+<style>
+    
+    .recipe-form-container {
+        background: #fff;
+        padding: 20px 40px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+    }
+    .recipe-form-container h2 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        color: #555;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="number"],
+    .form-group input[type="file"],
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        outline: none;
+    }
+    .form-group input[type="file"] {
+        padding: 5px;
+    }
+    .form-group textarea {
+        resize: vertical;
+        height: 100px;
+    }
+    .form-group select {
+        cursor: pointer;
+    }
+    .form-group .tags {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .form-group .tags label {
+        font-weight: normal;
+        display: inline-block;
+    }
+    .form-group .tags input[type="checkbox"] {
+        margin-right: 5px;
+    }
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        text-transform: uppercase;
+    }
+    .submit-btn:hover {
+        background-color: #218838;
+    }
+</style>
+</head>
+<body>
+
+<div class="recipe-form-container">
+    <h2>Edit Your Recipe</h2>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="id">Recipe Id</label>
+            <input type="text" id="id" name="id" value="{{recipe.id}}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="title">Recipe Title</label>
+            <input type="text" id="title" name="title" value="{{recipe.title}}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="ingredients">Ingredients</label>
+            <textarea id="ingredients" name="ingredients">{{recipe.ingredients}}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="instruction">Instructions</label>
+            <textarea id="instruction" name="instruction">{{recipe.instructions}}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="prep-time">Preparation Time (minutes)</label>
+            <input type="number" id="prep-time" name="prep_time" value="{{recipe.prep_time}}" >
+        </div>
+
+        <div class="form-group">
+            <label for="cook-time">Cooking Time (minutes)</label>
+            <input type="number" id="cook-time" name="cook_time" value="{{recipe.cooking_time}}" >
+        </div>
+
+        <div class="form-group">
+            <label for="total-time">Total Time (minutes)</label>
+            <input type="number" id="total-time" name="total_time" value="{{recipe.total_time}}" >
+        </div>
+
+        <div class="form-group">
+            <label for="difficulty">Difficulty Level</label>
+            <select id="difficulty" name="difficulty" value="{{recipe.Difficulty}}">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="nutrition">Nutritional Information</label>
+            <textarea id="nutrition" name="nutrition">{{recipe.nutrition}}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Recipe Image</label>
+
+            <img src="/{{recipe.image}}"  alt="" height="50px" width="100px">
+            <input type="file" id="image" name="image" accept="image/*">
+        </div>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" name="category" value="{{recipe.Category}}">
+                <option value="">Select</option>
+                <option value="breakfast">Break Fast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="tag">Tag</label>
+            <select id="tag" name="tag" value="{{recipe.Tag}}">
+                <option value="">Select</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="nonVegetarian"> Non Vegetarian</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="calories">Total Calories</label>
+            <input type="number" id="calories" name="calories" value="{{recipe.calories}}">
+        </div>
+
+        <button type="submit" class="submit-btn">Update Recipe</button>
+    </form>
+</div>
+
+</body>
+</html>
+
+
+    
+{% endblock body %}
